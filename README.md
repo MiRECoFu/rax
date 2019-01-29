@@ -442,6 +442,26 @@ export default function Bar() {
 }
 ```
 
+#### Code Splitting
+To avoid winding up with a large bundle, it’s good to get ahead of the problem and start “splitting” your bundle.
+Code-splitting your app can help you “lazy-load” just the things that are currently needed by the user, which can dramatically improve the performance of your app. While you haven’t reduced the overall amount of code in your app, you’ve avoided loading code that the user may never need, and reduced the amount of code needed during the initial load.
+
+```jsx
+import useImport  from 'rax-use-import'; 
+
+function MyComponent() {
+  const [OtherComponent, error] = useImport(() => import('./OtherComponent'));
+
+  if (error) {
+    return <p>error</p>
+  } else if (OtherComponent) {
+    return <OtherComponent />
+  } else {
+    return <p>loading</p>
+  }
+}
+```
+
 ## Rax Renderers
 
 * :traffic_light: [rax-test-renderer](/packages/rax-test-renderer): Rax renderer for snapshot testing.
